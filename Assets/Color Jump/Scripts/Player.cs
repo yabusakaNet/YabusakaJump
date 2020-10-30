@@ -44,119 +44,110 @@ public class Player : MonoBehaviour
 
 
 
-    void Start()
+    void Start ()
     {
-        rb = GetComponent<Rigidbody2D>();
-        source = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody2D> ();
+        source = GetComponent<AudioSource> ();
 
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        stepManager = GameObject.Find("StepManager").GetComponent<StepManager>();
+        gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+        stepManager = GameObject.Find ("StepManager").GetComponent<StepManager> ();
 
-        RightEnd = GameObject.Find("GameManager").GetComponent<DisplayManager>().RIGHT;
-        LeftEnd = GameObject.Find("GameManager").GetComponent<DisplayManager>().LEFT;
-        Height = GameObject.Find("GameManager").GetComponent<DisplayManager>().HEIGHT;
+        RightEnd = GameObject.Find ("GameManager").GetComponent<DisplayManager> ().RIGHT;
+        LeftEnd = GameObject.Find ("GameManager").GetComponent<DisplayManager> ().LEFT;
+        Height = GameObject.Find ("GameManager").GetComponent<DisplayManager> ().HEIGHT;
     }
 
 
 
 
-    void Update()
+    void Update ()
     {
-        WaitToTouch();
+        WaitToTouch ();
         if (!isStart) return;
         if (isDead) return;
 
-        GetInput();
-        MovePlayer();
-        AddGravityToPlayer();
+        GetInput ();
+        MovePlayer ();
+        AddGravityToPlayer ();
 
-        DeadJudgement();
+        DeadJudgement ();
     }
 
 
-    void WaitToTouch()
+    void WaitToTouch ()
     {
-        if (!isStart)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
+        if (!isStart) {
+            if (Input.GetMouseButtonDown (0)) {
                 if (!isStart) isStart = true;
-                gameManager.StartGame();
+                gameManager.StartGame ();
             }
         }
     }
 
 
-    void DeadJudgement()
+    void DeadJudgement ()
     {
-        if (isDead == false && Camera.main.transform.position.y - transform.position.y > Height / 2)
-        {
+        if (isDead == false && Camera.main.transform.position.y - transform.position.y > Height / 2) {
             isDead = true;
             rb.isKinematic = true;
             rb.velocity = Vector2.zero;
-            GameOver();
+            GameOver ();
         }
     }
 
 
-    void GameOver()
+    void GameOver ()
     {
-        GameObject effectObj = Instantiate(FX_Dead, transform.position, Quaternion.identity);
-        gameManager.GameOver();
-        source.PlayOneShot(DeadClip, 1);
+        GameObject effectObj = Instantiate (FX_Dead, transform.position, Quaternion.identity);
+        gameManager.GameOver ();
+        source.PlayOneShot (DeadClip, 1);
     }
 
-    void GetInput()
+    void GetInput ()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetMouseButtonDown (0)) {
             if (!isStart) isStart = true;
 
             isDragging = true;
-            TouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+            TouchPosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 10));
             PlayerPosition = transform.position;
 
-        }
-        else if ((Input.GetMouseButtonUp(0)))
-        {
+        } else if ((Input.GetMouseButtonUp (0))) {
             isDragging = false;
         }
     }
 
 
 
-    void MovePlayer()
+    void MovePlayer ()
     {
-        if (isDragging == true)
-        {
-            DragPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-            transform.position = new Vector3(PlayerPosition.x + (DragPosition.x - TouchPosition.x) * 1.5f, transform.position.y);
+        if (isDragging == true) {
+            DragPosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 10));
+            transform.position = new Vector3 (PlayerPosition.x + (DragPosition.x - TouchPosition.x) * 1.5f, transform.position.y);
 
             if (transform.position.x < LeftEnd)
-                transform.position = new Vector3(LeftEnd, transform.position.y);
+                transform.position = new Vector3 (LeftEnd, transform.position.y);
             if (transform.position.x > RightEnd)
-                transform.position = new Vector3(RightEnd, transform.position.y);
+                transform.position = new Vector3 (RightEnd, transform.position.y);
         }
     }
 
 
 
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D (Collider2D other)
     {
-        if (other.gameObject.tag == "Step")
-        {
-            if (rb.velocity.y <= 0)
-            {
-                Jump();
-                Effect(other);
-                ChangeBackgroundColor(other);
-                DestroyAndCreateNewStep(other);
-                IncreaseGravity();
+        if (other.gameObject.tag == "Step") {
+            if (rb.velocity.y <= 0) {
+                Jump ();
+                Effect (other);
+                ChangeBackgroundColor (other);
+                DestroyAndCreateNewStep (other);
+                IncreaseGravity ();
 
-                gameManager.AddScore(1);
-                
-                source.PlayOneShot(JumpClip, 1);
+                gameManager.AddScore (1);
+
+                source.PlayOneShot (JumpClip, 1);
             }
         }
 
@@ -164,40 +155,40 @@ public class Player : MonoBehaviour
 
 
 
-    void Jump()
+    void Jump ()
     {
         JumpVelocity = gravity * 26;
-        rb.velocity = new Vector2(0, JumpVelocity);
+        rb.velocity = new Vector2 (0, JumpVelocity);
     }
 
-    void Effect(Collider2D step)
+    void Effect (Collider2D step)
     {
-        GameObject jumpEffect = Instantiate(FX_Jump, transform.position, Quaternion.identity);
-        Destroy(jumpEffect, 1.0f);
+        GameObject jumpEffect = Instantiate (FX_Jump, transform.position, Quaternion.identity);
+        Destroy (jumpEffect, 1.0f);
 
-        GameObject stepDestroyEffect = Instantiate(FX_StepDestory, step.gameObject.transform.position, Quaternion.identity);
-        Destroy(stepDestroyEffect, 0.5f);
+        GameObject stepDestroyEffect = Instantiate (FX_StepDestory, step.gameObject.transform.position, Quaternion.identity);
+        Destroy (stepDestroyEffect, 0.5f);
     }
 
-    void DestroyAndCreateNewStep(Collider2D step)
+    void DestroyAndCreateNewStep (Collider2D step)
     {
-        Destroy(step.gameObject);
-        stepManager.MakeNewStep();
+        Destroy (step.gameObject);
+        stepManager.MakeNewStep ();
     }
 
 
-    void AddGravityToPlayer()
+    void AddGravityToPlayer ()
     {
-        rb.velocity = new Vector2(0, rb.velocity.y - (gravity * gravity));
+        rb.velocity = new Vector2 (0, rb.velocity.y - (gravity * gravity));
     }
 
-    void ChangeBackgroundColor(Collider2D step)
+    void ChangeBackgroundColor (Collider2D step)
     {
-        Camera.main.backgroundColor = step.gameObject.GetComponent<SpriteRenderer>().color;
+        //Camera.main.backgroundColor = step.gameObject.GetComponent<SpriteRenderer>().color;
     }
 
 
-    void IncreaseGravity()
+    void IncreaseGravity ()
     {
         gravity += gravityIncrease;
         if (gravity > maxGravity) gravity = maxGravity;
