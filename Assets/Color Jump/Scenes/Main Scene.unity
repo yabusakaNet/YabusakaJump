@@ -2849,6 +2849,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepPrefab: {fileID: 1777304423271494, guid: 7c519266e3ddf4006bb2d2da3a61aa86, type: 3}
+  dummyStepPrefab: {fileID: 1777304423271494, guid: ff3c3289d9c1a42a49d7db4ed281d700,
+    type: 3}
 --- !u!1 &1511928475
 GameObject:
   m_ObjectHideFlags: 0

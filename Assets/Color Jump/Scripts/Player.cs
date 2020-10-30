@@ -136,6 +136,13 @@ public class Player : MonoBehaviour
 
                 source.PlayOneShot (JumpClip, 1);
             }
+        } else if (other.gameObject.tag == "DummyStep") {
+            if (rb.velocity.y <= 0) {
+                isDead = true;
+                rb.isKinematic = true;
+                rb.velocity = Vector2.zero;
+                GameOver ();
+            }
         }
     }
 
