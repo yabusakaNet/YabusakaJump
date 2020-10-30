@@ -865,7 +865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerObj: {fileID: 1039518235}
   smoothTime: 0.2
-  yOffset: 8
+  yOffset: 5
 --- !u!1 &1039518235
 GameObject:
   m_ObjectHideFlags: 0
