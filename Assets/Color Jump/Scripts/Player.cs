@@ -15,15 +15,11 @@ public class Player : MonoBehaviour
     float LeftEnd;
     float Height;
 
-
     public GameObject FX_Jump;
     public GameObject FX_StepDestory;
     public GameObject FX_Dead;
 
     StepManager stepManager;
-
-
-
     GameManager gameManager;
 
     bool isStart = false;
@@ -33,16 +29,13 @@ public class Player : MonoBehaviour
     public AudioClip JumpClip;
     public AudioClip DeadClip;
 
-
     float JumpVelocity;
 
     public float gravity;
     public float maxGravity;
     public float gravityIncrease;
 
-
-
-
+    public Animator playerAnimator;
 
     void Start ()
     {
@@ -55,10 +48,9 @@ public class Player : MonoBehaviour
         RightEnd = GameObject.Find ("GameManager").GetComponent<DisplayManager> ().RIGHT;
         LeftEnd = GameObject.Find ("GameManager").GetComponent<DisplayManager> ().LEFT;
         Height = GameObject.Find ("GameManager").GetComponent<DisplayManager> ().HEIGHT;
+
+        playerAnimator.Play ("Character@Stand", 0, 0f);
     }
-
-
-
 
     void Update ()
     {
@@ -117,8 +109,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
-
     void MovePlayer ()
     {
         if (isDragging == true) {
@@ -132,14 +122,11 @@ public class Player : MonoBehaviour
         }
     }
 
-
-
-
     void OnTriggerEnter2D (Collider2D other)
     {
         if (other.gameObject.tag == "Step") {
             if (rb.velocity.y <= 0) {
-                Jump ();
+                StartCoroutine (Jump ());
                 Effect (other);
                 ChangeBackgroundColor (other);
                 DestroyAndCreateNewStep (other);
@@ -150,15 +137,20 @@ public class Player : MonoBehaviour
                 source.PlayOneShot (JumpClip, 1);
             }
         }
-
     }
 
-
-
-    void Jump ()
+    IEnumerator Jump ()
     {
         JumpVelocity = gravity * 26;
         rb.velocity = new Vector2 (0, JumpVelocity);
+
+        playerAnimator.Play ("Character@Stoop", 0, 0f);
+        yield return new WaitForSeconds (0.1f);
+        playerAnimator.Play ("Character@Stretch", 0, 0f);
+        yield return new WaitForSeconds (0.1f);
+        playerAnimator.Play ("Character@Jump", 0, 0f);
+        yield return new WaitForSeconds (0.1f);
+        playerAnimator.Play ("Character@Stretch", 0, 0f);
     }
 
     void Effect (Collider2D step)
