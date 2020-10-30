@@ -9,6 +9,8 @@ public class StepManager : MonoBehaviour
 
     float hueValue;
     int stepIndex = 1;
+    const float initialStepWidth = 1.5f;
+    const float limitStepWidth = 0.5f;
 
     void Start ()
     {
@@ -48,10 +50,13 @@ public class StepManager : MonoBehaviour
         stepIndex++;
     }
 
-
-
     void SetWidth (GameObject newStep)
     {
-        //TODO
+        var scale = newStep.transform.localScale;
+        var width = initialStepWidth - (stepIndex * 0.01f);
+        if (width < limitStepWidth) {
+            width = limitStepWidth;
+        }
+        newStep.transform.localScale = new Vector3 (width, scale.y, scale.z);
     }
 }
