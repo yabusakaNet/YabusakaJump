@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     public float maxGravity;
     public float gravityIncrease;
 
+    public Transform character;
+
     public Animator playerAnimator;
 
     void Start ()
@@ -113,7 +115,15 @@ public class Player : MonoBehaviour
     {
         if (isDragging == true) {
             DragPosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 10));
+            var beforPosX = transform.position.x;
             transform.position = new Vector3 (PlayerPosition.x + (DragPosition.x - TouchPosition.x) * 1.5f, transform.position.y);
+            var afterPosX = transform.position.x;
+
+            if (beforPosX < afterPosX) {
+                character.rotation = Quaternion.Euler (0f, 180f, 0f);
+            } else if (beforPosX > afterPosX) {
+                character.rotation = Quaternion.Euler (0f, 0f, 0f);
+            }
 
             if (transform.position.x < LeftEnd)
                 transform.position = new Vector3 (LeftEnd, transform.position.y);

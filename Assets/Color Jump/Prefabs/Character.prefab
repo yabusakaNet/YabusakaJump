@@ -378,6 +378,7 @@ MonoBehaviour:
   gravity: 1.3
   maxGravity: 2.5
   gravityIncrease: 0.003
+  character: {fileID: 1343729120029146831}
   playerAnimator: {fileID: 4108107038929626408}
 --- !u!95 &4108107038929626408
 Animator:
