@@ -1,5 +1,6 @@
 ﻿
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StepManager : MonoBehaviour
@@ -7,6 +8,8 @@ public class StepManager : MonoBehaviour
 
     public GameObject stepPrefab;
     public GameObject dummyStepPrefab;
+
+    Dictionary<int, GameObject> dummyStepObjects;
 
     float hueValue;
     int stepIndex = 1;
@@ -22,6 +25,8 @@ public class StepManager : MonoBehaviour
 
     void Start ()
     {
+        DestroyDummySteps ();
+
         InitColor ();
 
         for (int i = 0; i < 4; i++) {
@@ -37,12 +42,9 @@ public class StepManager : MonoBehaviour
 
     public void MakeNewStep ()
     {
-        int randomPosx;
-        if (stepIndex == 1)
-            randomPosx = 0;
-        else
-            randomPosx = Random.Range (-4, 5);
+        DestroyDummyStep ();
 
+        var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
         Vector2 pos = new Vector2 (randomPosx, stepIndex * 4);
         GameObject newStep = Instantiate (stepPrefab, pos, Quaternion.identity);
         newStep.transform.SetParent (transform);
@@ -51,6 +53,7 @@ public class StepManager : MonoBehaviour
         if (stepIndex < 5) {
             type = StepType.Normal;
         }
+
         switch (type) {
         case StepType.Normal:
             break;
@@ -88,10 +91,36 @@ public class StepManager : MonoBehaviour
 
     void SetDummyStep (GameObject newStep)
     {
-        int randomPosx = Random.Range (-4, 5);
-        Vector2 pos = new Vector2 (randomPosx, stepIndex * 4);
-        GameObject newDummyStep = Instantiate (dummyStepPrefab, pos, Quaternion.identity);
+        var isDummyLeft = Random.Range (0, 2) == 1;
+        int randomPosLeft = Random.Range (-4, 0);
+        int randomPosRight = Random.Range (1, 5);
+        Vector2 posLeft = new Vector2 (randomPosLeft, stepIndex * 4);
+        Vector2 posRight = new Vector2 (randomPosRight, stepIndex * 4);
+        GameObject newDummyStep = Instantiate (dummyStepPrefab, isDummyLeft ? posLeft : posRight, Quaternion.identity);
         newDummyStep.transform.SetParent (transform);
+        dummyStepObjects.Add (stepIndex, newDummyStep);
+        newStep.transform.localPosition = isDummyLeft ? posRight : posLeft;
+    }
+
+    void DestroyDummyStep ()
+    {
+        if (dummyStepObjects.ContainsKey (stepIndex - 5)) {
+            Destroy (dummyStepObjects[stepIndex - 5]);
+            dummyStepObjects.Remove (stepIndex - 5);
+        }
+    }
+
+    void DestroyDummySteps ()
+    {
+        if (dummyStepObjects == null) {
+            dummyStepObjects = new Dictionary<int, GameObject> ();
+            return;
+        }
+        foreach (var obj in dummyStepObjects) {
+            Destroy (obj.Value);
+        }
+        dummyStepObjects.Clear ();
+        dummyStepObjects = new Dictionary<int, GameObject> ();
     }
 
     public int GetTypeNum<T> () where T : struct
