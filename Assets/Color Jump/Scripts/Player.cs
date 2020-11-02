@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Step") {
             if (rb.velocity.y <= 0) {
-                StartCoroutine (Jump ());
+                Jump ();
                 Effect (other);
                 ChangeBackgroundColor (other);
                 DestroyAndCreateNewStep (other);
@@ -146,18 +146,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator Jump ()
+    void Jump ()
     {
         JumpVelocity = gravity * 26;
         rb.velocity = new Vector2 (0, JumpVelocity);
-
-        playerAnimator.Play ("Character@Stoop", 0, 0f);
-        yield return new WaitForSeconds (0.1f);
-        playerAnimator.Play ("Character@Stretch", 0, 0f);
-        yield return new WaitForSeconds (0.1f);
         playerAnimator.Play ("Character@Jump", 0, 0f);
-        yield return new WaitForSeconds (0.1f);
-        playerAnimator.Play ("Character@Stretch", 0, 0f);
     }
 
     void Effect (Collider2D step)
