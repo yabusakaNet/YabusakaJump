@@ -649,7 +649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &167759126
 Camera:
   m_ObjectHideFlags: 0
@@ -678,7 +678,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 10
-  m_Depth: -1
+  m_Depth: -2
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -722,6 +722,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8875104839074081521, guid: 5631776aa77234dc4bd50ba4810d278d,
+        type: 3}
+      propertyPath: followPlayer
+      value: 
+      objectReference: {fileID: 534669906}
     - target: {fileID: 8875104839074081522, guid: 5631776aa77234dc4bd50ba4810d278d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1521,7 +1526,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.14901961, g: 0.21176471, b: 0.02745098, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1582,7 +1587,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerObj: {fileID: 186693987}
   smoothTime: 0.2
+  BackTransform: {fileID: 1932221513}
+  ForegroundTransform: {fileID: 167759128}
   yOffset: 5
+  yOffsetBack: 0
+  yOffsetForeground: 0
 --- !u!1 &550918137
 GameObject:
   m_ObjectHideFlags: 0
@@ -2080,7 +2089,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1399097619
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1090188419
@@ -2287,7 +2296,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: -2076810649
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1227138885
@@ -3110,7 +3119,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1832552231
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1555148234
@@ -3393,7 +3402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &1932221511
 Camera:
   m_ObjectHideFlags: 0
@@ -3422,7 +3431,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 10
-  m_Depth: -1
+  m_Depth: -3
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

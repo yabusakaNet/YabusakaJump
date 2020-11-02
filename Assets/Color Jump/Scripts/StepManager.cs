@@ -27,17 +27,9 @@ public class StepManager : MonoBehaviour
     {
         DestroyDummySteps ();
 
-        InitColor ();
-
         for (int i = 0; i < 4; i++) {
             MakeNewStep ();
         }
-    }
-
-    void InitColor ()
-    {
-        hueValue = Random.Range (0, 10) / 10.0f;
-        Camera.main.backgroundColor = Color.HSVToRGB (hueValue, 0.6f, 0.8f);
     }
 
     public void MakeNewStep ()
