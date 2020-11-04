@@ -6,74 +6,74 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-
-
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI bestScoreText;
     public GameObject DeadEffectPanel;
     public GameObject GameOverPanel;
     public GameObject TouchToStargGame;
 
+    public MoveBackground MoveBackgroundBack;
+    public MoveBackground MoveBackgroundForeground;
 
     int score = 0;
 
-    void Awake()
+    void Awake ()
     {
         Application.targetFrameRate = 60;
         Time.timeScale = 1;
-        bestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
+        bestScoreText.text = PlayerPrefs.GetInt ("BestScore", 0).ToString ();
     }
 
-    void Start()
+    void Start ()
     {
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString ();
     }
 
-
-    public void StartGame()
+    public void StartGame ()
     {
-        TouchToStargGame.SetActive(false);
+        TouchToStargGame.SetActive (false);
+        MoveBackgroundBack.StartMove ();
+        MoveBackgroundForeground.StartMove ();
     }
 
-    public void AddScore(int value)
+    public void AddScore (int value)
     {
         score += value;
-        scoreText.color = new Color(Camera.main.backgroundColor.r + 0.1f, Camera.main.backgroundColor.g + 0.1f, Camera.main.backgroundColor.b + 0.1f, 0.2f);
-        scoreText.text = score.ToString();
+        scoreText.color = new Color (Camera.main.backgroundColor.r + 0.1f, Camera.main.backgroundColor.g + 0.1f, Camera.main.backgroundColor.b + 0.1f, 0.2f);
+        scoreText.text = score.ToString ();
 
 
-        if (score > PlayerPrefs.GetInt("BestScore", 0))
-        {
-            bestScoreText.text = score.ToString();
-            PlayerPrefs.SetInt("BestScore", score);
+        if (score > PlayerPrefs.GetInt ("BestScore", 0)) {
+            bestScoreText.text = score.ToString ();
+            PlayerPrefs.SetInt ("BestScore", score);
         }
     }
 
-    public void GameOver()
+    public void GameOver ()
     {
-        StartCoroutine(GameOverCoroutine());
+        StartCoroutine (GameOverCoroutine ());
+
+        MoveBackgroundBack.StopMove ();
+        MoveBackgroundForeground.StopMove ();
     }
 
-    IEnumerator GameOverCoroutine()
+    IEnumerator GameOverCoroutine ()
     {
         Time.timeScale = 0.1f;
-        DeadEffectPanel.SetActive(true);
+        DeadEffectPanel.SetActive (true);
         scoreText.color = Color.white;
 
-        yield return new WaitForSecondsRealtime(1.0f);
+        yield return new WaitForSecondsRealtime (1.0f);
         Time.timeScale = 0.0f;
-        DeadEffectPanel.SetActive(false);
-        GameOverPanel.SetActive(true);
+        DeadEffectPanel.SetActive (false);
+        GameOverPanel.SetActive (true);
 
         yield break;
     }
 
-
-
-
-    public void Restart()
+    public void Restart ()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
     }
 
 }

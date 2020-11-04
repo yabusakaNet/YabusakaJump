@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48693640}
   - component: {fileID: 48693641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Side_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,6 +470,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90931518}
   m_CullTransparentMesh: 0
+--- !u!1 &100488311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 100488312}
+  - component: {fileID: 100488313}
+  m_Layer: 8
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &100488312
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100488311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 453287908}
+  m_Father: {fileID: 1555148234}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &100488313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100488311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee4e749a2c624424af9ee2c0db5a997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: -0.1
+  smoothTime: 0.5
+  limitPosY: -1300
 --- !u!1 &142564217
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 142564218}
   - component: {fileID: 142564219}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Side_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +613,7 @@ GameObject:
   m_Component:
   - component: {fileID: 148872974}
   - component: {fileID: 148872975}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,8 +694,7 @@ GameObject:
   m_Component:
   - component: {fileID: 167759128}
   - component: {fileID: 167759126}
-  - component: {fileID: 167759127}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Foreground Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +732,7 @@ Camera:
   m_Depth: -2
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 512
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -693,14 +744,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &167759127
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167759125}
-  m_Enabled: 1
 --- !u!4 &167759128
 Transform:
   m_ObjectHideFlags: 0
@@ -727,6 +770,16 @@ PrefabInstance:
       propertyPath: followPlayer
       value: 
       objectReference: {fileID: 534669906}
+    - target: {fileID: 8875104839074081521, guid: 5631776aa77234dc4bd50ba4810d278d,
+        type: 3}
+      propertyPath: MoveBackgroundBack
+      value: 
+      objectReference: {fileID: 100488313}
+    - target: {fileID: 8875104839074081521, guid: 5631776aa77234dc4bd50ba4810d278d,
+        type: 3}
+      propertyPath: MoveBackgroundForeground
+      value: 
+      objectReference: {fileID: 2131355593}
     - target: {fileID: 8875104839074081522, guid: 5631776aa77234dc4bd50ba4810d278d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -916,7 +969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 276938346}
   - component: {fileID: 276938347}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Side_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,7 +1280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 370022834}
   - component: {fileID: 370022835}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background_Cloud_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1388,7 +1441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 453287908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1402,7 +1455,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 453287907}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1413,13 +1466,13 @@ RectTransform:
   - {fileID: 1171373659}
   - {fileID: 1948475592}
   - {fileID: 2138919793}
-  m_Father: {fileID: 1555148234}
+  m_Father: {fileID: 100488312}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 750.375, y: 1334}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &524481458
 GameObject:
@@ -1430,7 +1483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 524481459}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1525,7 +1578,7 @@ Camera:
   m_GameObject: {fileID: 534669902}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.14901961, g: 0.21176471, b: 0.02745098, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1544,10 +1597,10 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 10
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1587,11 +1640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerObj: {fileID: 186693987}
   smoothTime: 0.2
-  BackTransform: {fileID: 1932221513}
-  ForegroundTransform: {fileID: 167759128}
   yOffset: 5
-  yOffsetBack: 0
-  yOffsetForeground: 0
 --- !u!1 &550918137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,7 +1651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 550918138}
   - component: {fileID: 550918139}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background_Cloud_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1683,7 +1732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 584747369}
   - component: {fileID: 584747370}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Side_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1764,7 +1813,7 @@ GameObject:
   m_Component:
   - component: {fileID: 616634146}
   - component: {fileID: 616634147}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background_Cloud_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1845,7 +1894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 743724629}
   - component: {fileID: 743724630}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background_Cloud_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1926,7 +1975,7 @@ GameObject:
   m_Component:
   - component: {fileID: 974692330}
   - component: {fileID: 974692331}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background_Cloud_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2006,7 +2055,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1027424161}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RIght
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2149,7 +2198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1171373659}
   - component: {fileID: 1171373660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background_Cloud_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2232,7 +2281,7 @@ GameObject:
   - component: {fileID: 1227138884}
   - component: {fileID: 1227138883}
   - component: {fileID: 1227138882}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background_Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2296,7 +2345,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: -2076810649
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1227138885
@@ -2310,7 +2359,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1387085867}
+  - {fileID: 2131355592}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2423,7 +2472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1280233783}
   - component: {fileID: 1280233784}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2638,7 +2687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1314930662}
   - component: {fileID: 1314930663}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Side_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2852,7 +2901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1387085867}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2866,7 +2915,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387085866}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2880,7 +2929,7 @@ RectTransform:
   - {fileID: 1569922889}
   - {fileID: 974692330}
   - {fileID: 370022834}
-  m_Father: {fileID: 1227138885}
+  m_Father: {fileID: 2131355592}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3055,7 +3104,7 @@ GameObject:
   - component: {fileID: 1555148233}
   - component: {fileID: 1555148232}
   - component: {fileID: 1555148231}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3119,7 +3168,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: -1832552231
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1555148234
@@ -3133,7 +3182,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 453287908}
+  - {fileID: 100488312}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3152,7 +3201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1569922889}
   - component: {fileID: 1569922890}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background_Cloud_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3233,7 +3282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1610034878}
   - component: {fileID: 1610034879}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Moon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3314,7 +3363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1745022128}
   - component: {fileID: 1745022129}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background_Cloud_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3395,8 +3444,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932221513}
   - component: {fileID: 1932221511}
-  - component: {fileID: 1932221512}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Back Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3412,7 +3460,7 @@ Camera:
   m_GameObject: {fileID: 1932221510}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -3430,11 +3478,11 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
-  m_Depth: -3
+  orthographic size: 1
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 256
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3446,14 +3494,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1932221512
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932221510}
-  m_Enabled: 1
 --- !u!4 &1932221513
 Transform:
   m_ObjectHideFlags: 0
@@ -3478,7 +3518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1948475592}
   - component: {fileID: 1948475593}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background_Cloud_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3559,7 +3599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1962089873}
   - component: {fileID: 1962089874}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background_Stripe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3574,8 +3614,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1962089872}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 989.91, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalPosition: {x: 0, y: 1500, z: 0}
+  m_LocalScale: {x: 100, y: 200, z: 100}
   m_Children: []
   m_Father: {fileID: 1387085867}
   m_RootOrder: 2
@@ -3640,7 +3680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1965748379}
   - component: {fileID: 1965748380}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Side_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3864,7 +3904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2078455630}
   - component: {fileID: 2078455631}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background_Town
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4010,6 +4050,60 @@ MonoBehaviour:
   DeadEffectPanel: {fileID: 1246097808}
   GameOverPanel: {fileID: 1511928475}
   TouchToStargGame: {fileID: 325434525}
+  MoveBackgroundBack: {fileID: 100488313}
+  MoveBackgroundForeground: {fileID: 2131355593}
+--- !u!1 &2131355591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2131355592}
+  - component: {fileID: 2131355593}
+  m_Layer: 9
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2131355592
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131355591}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1387085867}
+  m_Father: {fileID: 1227138885}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2131355593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131355591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee4e749a2c624424af9ee2c0db5a997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: -0.2
+  smoothTime: 0.5
+  limitPosY: -1400
 --- !u!1 &2132877015
 GameObject:
   m_ObjectHideFlags: 0
@@ -4086,7 +4180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2138919793}
   - component: {fileID: 2138919794}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background_Cloud_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
