@@ -522,6 +522,7 @@ MonoBehaviour:
   offset: -0.1
   smoothTime: 0.5
   limitPosY: -1300
+  isLoop: 1
 --- !u!1 &142564217
 GameObject:
   m_ObjectHideFlags: 0
@@ -3775,6 +3776,7 @@ MonoBehaviour:
   offset: -0.2
   smoothTime: 0.5
   limitPosY: -1400
+  isLoop: 0
 --- !u!1 &2132877015
 GameObject:
   m_ObjectHideFlags: 0
