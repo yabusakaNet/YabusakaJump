@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+ 
 
-public class Top : MonoBehaviour
+public class ButtonManager : MonoBehaviour
 {
-    public void OnStart ()
+    public void TappedButton()
     {
+        SeManager seManager = SeManager.Instance;
+        seManager.SettingPlaySE();
         SceneManager.LoadScene("Main Scene");
-        Debug.Log("asdakadhsfksdah");
     }
 }
