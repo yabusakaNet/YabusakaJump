@@ -9,7 +9,10 @@ public class StepManager : MonoBehaviour
     public GameObject stepPrefab;
     public GameObject dummyStepPrefab;
 
+    public GameObject coinPrefab;
+
     Dictionary<int, GameObject> dummyStepObjects;
+    Dictionary<int, GameObject> itemObjects;
 
     float hueValue;
     int stepIndex = 1;
@@ -21,11 +24,20 @@ public class StepManager : MonoBehaviour
         Suddenly,
         ShortSuddenly,
         Dummy,
+        Move,
+    }
+
+    enum ItemType
+    {
+        None = 0,
+        Coin,
+        Star,
+        Obstacle,
     }
 
     void Start ()
     {
-        DestroyDummySteps ();
+        DestroyStepAndItems ();
 
         for (int i = 0; i < 4; i++) {
             MakeNewStep ();
@@ -34,7 +46,7 @@ public class StepManager : MonoBehaviour
 
     public void MakeNewStep ()
     {
-        DestroyDummyStep ();
+        DestroyStepAndItem ();
 
         var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
         Vector2 pos = new Vector2 (randomPosx, stepIndex * 4);
@@ -60,11 +72,33 @@ public class StepManager : MonoBehaviour
             SetShort (newStep);
             break;
         case StepType.Dummy:
-            SetDummyStep (newStep);
+            CreateDummyStep (newStep);
             break;
         }
 
+        MakeItem ();
+
         stepIndex++;
+    }
+
+    public void MakeItem ()
+    {
+        var type = GetRandom<ItemType> ();
+        if (stepIndex < 5) {
+            type = ItemType.None;
+        }
+
+        switch (type) {
+        case ItemType.None:
+            break;
+        case ItemType.Coin:
+            CreateCoin ();
+            break;
+        case ItemType.Star:
+            break;
+        case ItemType.Obstacle:
+            break;
+        }
     }
 
     void SetShort (GameObject newStep)
@@ -81,7 +115,7 @@ public class StepManager : MonoBehaviour
         spriteRenderer.color = new Color (1f, 1f, 1f, 1f);
     }
 
-    void SetDummyStep (GameObject newStep)
+    void CreateDummyStep (GameObject newStep)
     {
         var isDummyLeft = Random.Range (0, 2) == 1;
         int randomPosLeft = Random.Range (-4, 0);
@@ -94,25 +128,49 @@ public class StepManager : MonoBehaviour
         newStep.transform.localPosition = isDummyLeft ? posRight : posLeft;
     }
 
-    void DestroyDummyStep ()
+    void CreateCoin ()
+    {
+        var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
+        Vector2 pos = new Vector2 (randomPosx, stepIndex * 4 + 2);
+        GameObject coin = Instantiate (coinPrefab, pos, Quaternion.identity);
+        coin.transform.SetParent (transform);
+        itemObjects.Add (stepIndex, coin);
+    }
+
+    void DestroyStepAndItem ()
     {
         if (dummyStepObjects.ContainsKey (stepIndex - 5)) {
             Destroy (dummyStepObjects[stepIndex - 5]);
             dummyStepObjects.Remove (stepIndex - 5);
         }
+
+        if (itemObjects.ContainsKey (stepIndex - 5)) {
+            Destroy (itemObjects[stepIndex - 5]);
+            itemObjects.Remove (stepIndex - 5);
+        }
     }
 
-    void DestroyDummySteps ()
+    void DestroyStepAndItems ()
     {
         if (dummyStepObjects == null) {
             dummyStepObjects = new Dictionary<int, GameObject> ();
-            return;
+        } else {
+            foreach (var obj in dummyStepObjects) {
+                Destroy (obj.Value);
+            }
+            dummyStepObjects.Clear ();
+            dummyStepObjects = new Dictionary<int, GameObject> ();
         }
-        foreach (var obj in dummyStepObjects) {
-            Destroy (obj.Value);
+
+        if (itemObjects == null) {
+            itemObjects = new Dictionary<int, GameObject> ();
+        } else {
+            foreach (var obj in itemObjects) {
+                Destroy (obj.Value);
+            }
+            itemObjects.Clear ();
+            itemObjects = new Dictionary<int, GameObject> ();
         }
-        dummyStepObjects.Clear ();
-        dummyStepObjects = new Dictionary<int, GameObject> ();
     }
 
     public int GetTypeNum<T> () where T : struct

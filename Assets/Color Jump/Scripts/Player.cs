@@ -153,6 +153,9 @@ public class Player : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 GameOver ();
             }
+        } else if (other.gameObject.tag == "Coin") {
+            gameManager.AddScore (1);
+            DestroyItem (other);
         }
     }
 
@@ -176,6 +179,11 @@ public class Player : MonoBehaviour
     {
         Destroy (step.gameObject);
         stepManager.MakeNewStep ();
+    }
+
+    void DestroyItem (Collider2D item)
+    {
+        Destroy (item.gameObject);
     }
 
 
