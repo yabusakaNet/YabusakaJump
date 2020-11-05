@@ -15,6 +15,16 @@ public class GameManager : MonoBehaviour
     public MoveBackground MoveBackgroundBack;
     public MoveBackground MoveBackgroundForeground;
 
+    private bool _isStar = false;
+    public bool isStar {
+        get {
+            return _isStar;
+        }
+        set {
+            _isStar = value;
+        }
+    }
+
     int score = 0;
 
     void Awake ()
@@ -27,6 +37,11 @@ public class GameManager : MonoBehaviour
     void Start ()
     {
         scoreText.text = score.ToString ();
+
+        if (IsInvoking ("FinishStar")) {
+            CancelInvoke ("FinishStar");
+        }
+        isStar = false;
     }
 
     public void StartGame ()
@@ -74,6 +89,17 @@ public class GameManager : MonoBehaviour
     public void Restart ()
     {
         SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+    }
+
+    public void StartStar ()
+    {
+        isStar = true;
+        Invoke ("FinishStar", 5f);
+    }
+
+    public void FinishStar ()
+    {
+        isStar = false;
     }
 
 }

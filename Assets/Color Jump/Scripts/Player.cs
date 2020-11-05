@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
 
     public Animator playerAnimator;
 
+    int lastJumpStepIndex = 0;
+
     void Start ()
     {
         rb = GetComponent<Rigidbody2D> ();
@@ -68,7 +70,6 @@ public class Player : MonoBehaviour
         DeadJudgement ();
     }
 
-
     void WaitToTouch ()
     {
         if (!isStart) {
@@ -79,7 +80,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
     void DeadJudgement ()
     {
         if (isDead == false && Camera.main.transform.position.y - transform.position.y > Height / 2) {
@@ -89,7 +89,6 @@ public class Player : MonoBehaviour
             GameOver ();
         }
     }
-
 
     void GameOver ()
     {
@@ -136,19 +135,19 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D (Collider2D other)
     {
         if (other.gameObject.tag == "Step") {
-            if (rb.velocity.y <= 0) {
-                Jump ();
-                Effect (other);
-                ChangeBackgroundColor (other);
-                DestroyAndCreateNewStep (other);
-                IncreaseGravity ();
-
-                gameManager.AddScore (1);
-
-                source.PlayOneShot (JumpClip, 1);
+            if (other.gameObject.name == "Step") {
+                return;
+            }
+            if (rb.velocity.y <= 0 || gameManager.isStar) {
+                Jump (other);
             }
         } else if (other.gameObject.tag == "DummyStep") {
-            if (rb.velocity.y <= 0) {
+            if (other.gameObject.name == "DummyStep") {
+                return;
+            }
+            if (gameManager.isStar) {
+                Jump (other);
+            } else if (rb.velocity.y <= 0) {
                 isDead = true;
                 rb.isKinematic = true;
                 rb.velocity = Vector2.zero;
@@ -158,14 +157,34 @@ public class Player : MonoBehaviour
             gameManager.AddScore (1);
             source.PlayOneShot (CoinClip, 1);
             DestroyItem (other);
+        } else if (other.gameObject.tag == "Star") {
+            gameManager.StartStar ();
+            DestroyItem (other);
         }
     }
 
-    void Jump ()
+    void Jump (Collider2D step)
     {
-        JumpVelocity = gravity * 26;
+        var stepIndex = int.Parse (step.gameObject.name);
+
+        JumpVelocity = gravity * (gameManager.isStar ? 30f : 26f);
         rb.velocity = new Vector2 (0, JumpVelocity);
         playerAnimator.Play ("Character@Jump", 0, 0f);
+
+        Effect (step);
+        Destroy (step.gameObject);
+        stepManager.MakeNewStep ();
+        if (lastJumpStepIndex != stepIndex - 1) {
+            stepManager.MakeNewStep ();
+        }
+
+        IncreaseGravity ();
+
+        gameManager.AddScore (1);
+
+        source.PlayOneShot (JumpClip, 1);
+
+        lastJumpStepIndex = int.Parse (step.gameObject.name);
     }
 
     void Effect (Collider2D step)
@@ -177,28 +196,15 @@ public class Player : MonoBehaviour
         Destroy (stepDestroyEffect, 0.5f);
     }
 
-    void DestroyAndCreateNewStep (Collider2D step)
-    {
-        Destroy (step.gameObject);
-        stepManager.MakeNewStep ();
-    }
-
     void DestroyItem (Collider2D item)
     {
         Destroy (item.gameObject);
     }
 
-
     void AddGravityToPlayer ()
     {
         rb.velocity = new Vector2 (0, rb.velocity.y - (gravity * gravity));
     }
-
-    void ChangeBackgroundColor (Collider2D step)
-    {
-        //Camera.main.backgroundColor = step.gameObject.GetComponent<SpriteRenderer>().color;
-    }
-
 
     void IncreaseGravity ()
     {
