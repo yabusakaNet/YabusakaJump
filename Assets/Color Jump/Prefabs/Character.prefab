@@ -375,6 +375,7 @@ MonoBehaviour:
   FX_Dead: {fileID: 1248348108361574, guid: 7b1588f099ac641cab12d99275adfe21, type: 3}
   JumpClip: {fileID: 8300000, guid: c9f081518de7541aab20792c1966c522, type: 3}
   DeadClip: {fileID: 8300000, guid: 40320d9e1d7bf411b99e1f93842a560f, type: 3}
+  CoinClip: {fileID: 8300000, guid: faf8215d6459e43a8a444d94e017be8d, type: 3}
   gravity: 1.3
   maxGravity: 2.5
   gravityIncrease: 0.003
