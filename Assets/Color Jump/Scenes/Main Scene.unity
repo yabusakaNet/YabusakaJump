@@ -4290,6 +4290,7 @@ MonoBehaviour:
   dummyStepPrefab: {fileID: 1777304423271494, guid: ff3c3289d9c1a42a49d7db4ed281d700,
     type: 3}
   coinPrefab: {fileID: 1777304423271494, guid: a9a8d499e3ea143ecaa5ab845d986712, type: 3}
+  starPrefab: {fileID: 1777304423271494, guid: ce32ea5e8ed334733840dbbcb112fe54, type: 3}
 --- !u!1 &1457644907
 GameObject:
   m_ObjectHideFlags: 0
