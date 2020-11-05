@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     AudioSource source;
     public AudioClip JumpClip;
     public AudioClip DeadClip;
+    public AudioClip CoinClip;
 
     float JumpVelocity;
 
@@ -154,6 +155,7 @@ public class Player : MonoBehaviour
             }
         } else if (other.gameObject.tag == "Coin") {
             gameManager.AddScore (1);
+            source.PlayOneShot (CoinClip, 1);
             DestroyItem (other);
         } else if (other.gameObject.tag == "Star") {
             gameManager.StartStar ();
