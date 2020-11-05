@@ -4285,7 +4285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4d12a184d5046a2bf532e147712970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepPrefab: {fileID: 1777304423271494, guid: 7c519266e3ddf4006bb2d2da3a61aa86, type: 3}
+  stepPrefab: {fileID: 114600212480517140, guid: 7c519266e3ddf4006bb2d2da3a61aa86,
+    type: 3}
   dummyStepPrefab: {fileID: 1777304423271494, guid: ff3c3289d9c1a42a49d7db4ed281d700,
     type: 3}
   coinPrefab: {fileID: 1777304423271494, guid: a9a8d499e3ea143ecaa5ab845d986712, type: 3}

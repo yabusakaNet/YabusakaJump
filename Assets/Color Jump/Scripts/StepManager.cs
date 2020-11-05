@@ -6,7 +6,7 @@ using UnityEngine;
 public class StepManager : MonoBehaviour
 {
 
-    public GameObject stepPrefab;
+    public Step stepPrefab;
     public GameObject dummyStepPrefab;
 
     public GameObject coinPrefab;
@@ -48,15 +48,15 @@ public class StepManager : MonoBehaviour
     {
         DestroyStepAndItem ();
 
-        var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
-        Vector2 pos = new Vector2 (randomPosx, stepIndex * 4);
-        GameObject newStep = Instantiate (stepPrefab, pos, Quaternion.identity);
-        newStep.transform.SetParent (transform);
-
         var type = GetRandom<StepType> ();
         if (stepIndex < 5) {
             type = StepType.Normal;
         }
+
+        var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
+        Vector2 pos = new Vector2 (randomPosx, stepIndex * 4);
+        var newStep = Instantiate (stepPrefab, pos, Quaternion.identity);
+        newStep.transform.SetParent (transform);
 
         switch (type) {
         case StepType.Normal:
@@ -73,6 +73,9 @@ public class StepManager : MonoBehaviour
             break;
         case StepType.Dummy:
             CreateDummyStep (newStep);
+            break;
+        case StepType.Move:
+            SetMove (newStep);
             break;
         }
 
@@ -101,13 +104,13 @@ public class StepManager : MonoBehaviour
         }
     }
 
-    void SetShort (GameObject newStep)
+    void SetShort (Step newStep)
     {
         var scale = newStep.transform.localScale;
         newStep.transform.localScale = new Vector3 (0.75f, scale.y, scale.z);
     }
 
-    IEnumerator SetSuddenly (GameObject newStep)
+    IEnumerator SetSuddenly (Step newStep)
     {
         var spriteRenderer = newStep.GetComponent<SpriteRenderer> ();
         spriteRenderer.color = new Color (1f, 1f, 1f, 0f);
@@ -115,7 +118,7 @@ public class StepManager : MonoBehaviour
         spriteRenderer.color = new Color (1f, 1f, 1f, 1f);
     }
 
-    void CreateDummyStep (GameObject newStep)
+    void CreateDummyStep (Step newStep)
     {
         var isDummyLeft = Random.Range (0, 2) == 1;
         int randomPosLeft = Random.Range (-4, 0);
@@ -126,6 +129,11 @@ public class StepManager : MonoBehaviour
         newDummyStep.transform.SetParent (transform);
         dummyStepObjects.Add (stepIndex, newDummyStep);
         newStep.transform.localPosition = isDummyLeft ? posRight : posLeft;
+    }
+
+    void SetMove (Step newStep)
+    {
+        newStep.StartMove ();
     }
 
     void CreateCoin ()
