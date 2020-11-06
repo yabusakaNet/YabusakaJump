@@ -143,7 +143,7 @@ public class StepManager : MonoBehaviour
 
     void CreateCoin ()
     {
-        var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
+        var randomPosx = Random.Range (-4, 5);
         Vector2 pos = new Vector2 (randomPosx, stepIndex * 4 + 2);
         GameObject coin = Instantiate (coinPrefab, pos, Quaternion.identity);
         coin.transform.SetParent (transform);
@@ -152,7 +152,7 @@ public class StepManager : MonoBehaviour
 
     void CreateStar ()
     {
-        var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
+        var randomPosx = Random.Range (-4, 5);
         Vector2 pos = new Vector2 (randomPosx, stepIndex * 4 + 2);
         GameObject star = Instantiate (starPrefab, pos, Quaternion.identity);
         star.transform.SetParent (transform);
@@ -161,19 +161,19 @@ public class StepManager : MonoBehaviour
 
     void DestroyStepAndItem ()
     {
-        if (stepObjects.ContainsKey (stepIndex - 5)) {
-            Destroy (stepObjects[stepIndex - 5]);
-            stepObjects.Remove (stepIndex - 5);
+        if (stepObjects.ContainsKey (stepIndex - 10)) {
+            Destroy (stepObjects[stepIndex - 10]);
+            stepObjects.Remove (stepIndex - 10);
         }
 
-        if (dummyStepObjects.ContainsKey (stepIndex - 5)) {
-            Destroy (dummyStepObjects[stepIndex - 5]);
-            dummyStepObjects.Remove (stepIndex - 5);
+        if (dummyStepObjects.ContainsKey (stepIndex - 10)) {
+            Destroy (dummyStepObjects[stepIndex - 10]);
+            dummyStepObjects.Remove (stepIndex - 10);
         }
 
-        if (itemObjects.ContainsKey (stepIndex - 5)) {
-            Destroy (itemObjects[stepIndex - 5]);
-            itemObjects.Remove (stepIndex - 5);
+        if (itemObjects.ContainsKey (stepIndex - 10)) {
+            Destroy (itemObjects[stepIndex - 10]);
+            itemObjects.Remove (stepIndex - 10);
         }
     }
 

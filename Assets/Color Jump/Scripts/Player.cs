@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
         playerAnimator.Play ("Character@Stand", 0, 0f);
 
         starBlinkingNextTime = Time.time;
+        stepManager.gameObject.SetActive (true);
     }
 
     void Update ()
@@ -108,6 +109,7 @@ public class Player : MonoBehaviour
         GameObject effectObj = Instantiate (FX_Dead, transform.position, Quaternion.identity);
         gameManager.GameOver ();
         source.PlayOneShot (DeadClip, 1);
+        stepManager.gameObject.SetActive (false);
     }
 
     void GetInput ()
@@ -191,8 +193,8 @@ public class Player : MonoBehaviour
 
         Effect (step);
         Destroy (step.gameObject);
-        stepManager.MakeNewStep ();
-        if (lastJumpStepIndex != stepIndex - 1) {
+        var addStep = stepIndex - lastJumpStepIndex;
+        for (int i = 0; addStep > i; i++) {
             stepManager.MakeNewStep ();
         }
 
