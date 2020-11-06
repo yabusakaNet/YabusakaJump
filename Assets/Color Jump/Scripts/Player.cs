@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public AudioClip JumpClip;
     public AudioClip DeadClip;
     public AudioClip CoinClip;
+    public AudioClip StarClip;
 
     float JumpVelocity;
 
@@ -156,6 +157,7 @@ public class Player : MonoBehaviour
             source.PlayOneShot (CoinClip, 1);
             DestroyItem (other);
         } else if (other.gameObject.tag == "Star") {
+            source.PlayOneShot(StarClip, 1);
             gameManager.EnableStar ();
             DestroyItem (other);
 
