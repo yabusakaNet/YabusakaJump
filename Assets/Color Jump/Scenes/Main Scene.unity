@@ -5817,6 +5817,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60de01f6b630c4e558bd7be53f033f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 2085193653}
+  audioSource: {fileID: 1845897169}
   audioClip: {fileID: 8300000, guid: 4082c216e3c194ca68d0b95f51c60766, type: 3}
   audioClipDead: {fileID: 8300000, guid: af6144bdf3234495a81deb5f646c452a, type: 3}
 --- !u!1 &1851199352
