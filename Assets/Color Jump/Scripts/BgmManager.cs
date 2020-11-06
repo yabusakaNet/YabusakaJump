@@ -1,34 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BgmManager : MonoBehaviour
 {
+    public GameManager gameManager;
+    public AudioSource audioSource;
+
     public AudioClip audioClip;
     public AudioClip audioClipDead;
-    private AudioSource audioSource;
 
-    GameManager gameManager;
-    Player player;
+    void Start ()
+    {
+        gameManager.OnStar += OnStar;
+        gameManager.OnDisableStar += OnDisableStar;
+        gameManager.OnDead += OnDead;
 
-    void Start () {
-        audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = audioClip;
         audioSource.Play ();
-
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    void Update()
+    public void OnStar ()
     {
-        if (gameManager.isStar)
-        {
-            audioSource.pitch = 1.5f;
-        }
-        else
-        {
-            audioSource.pitch = 1f;
-        }
+        audioSource.pitch = 1.5f;
+    }
+
+    public void OnDisableStar ()
+    {
+        audioSource.pitch = 1f;
+    }
+
+    public void OnDead ()
+    {
+        audioSource.clip = audioClipDead;
+        audioSource.Play ();
     }
 }

@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
     GameManager gameManager;
 
     bool isStart = false;
-    bool isDead = false;
 
     AudioSource source;
     public AudioClip JumpClip;
@@ -62,7 +61,7 @@ public class Player : MonoBehaviour
     {
         WaitToTouch ();
         if (!isStart) return;
-        if (isDead) return;
+        if (gameManager.isDead) return;
 
         GetInput ();
         MovePlayer ();
@@ -83,8 +82,7 @@ public class Player : MonoBehaviour
 
     void DeadJudgement ()
     {
-        if (isDead == false && Camera.main.transform.position.y - transform.position.y > Height / 2) {
-            isDead = true;
+        if (!gameManager.isDead && Camera.main.transform.position.y - transform.position.y > Height / 2) {
             rb.isKinematic = true;
             rb.velocity = Vector2.zero;
             GameOver ();
@@ -93,7 +91,6 @@ public class Player : MonoBehaviour
 
     void GameOver ()
     {
-        GameObject effectObj = Instantiate (FX_Dead, transform.position, Quaternion.identity);
         gameManager.GameOver ();
         source.PlayOneShot (DeadClip, 1);
         stepManager.gameObject.SetActive (false);
@@ -150,7 +147,6 @@ public class Player : MonoBehaviour
             if (gameManager.isStar) {
                 Jump (other);
             } else if (rb.velocity.y <= 0) {
-                isDead = true;
                 rb.isKinematic = true;
                 rb.velocity = Vector2.zero;
                 GameOver ();

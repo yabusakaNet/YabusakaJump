@@ -17,17 +17,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject StarEffectPanelObject;
 
+    public System.Action OnStar;
     public System.Action OnDisableStar;
+    public System.Action OnDead;
 
-    private bool _isStar = false;
-    public bool isStar {
-        get {
-            return _isStar;
-        }
-        set {
-            _isStar = value;
-        }
-    }
+    public bool isStar { get; set; } = false;
+    public bool isDead { get; set; } = false;
 
     int score = 0;
 
@@ -45,6 +40,7 @@ public class GameManager : MonoBehaviour
         if (IsInvoking ("DisableStar")) {
             CancelInvoke ("DisableStar");
         }
+
         DisableStar ();
     }
 
@@ -61,7 +57,6 @@ public class GameManager : MonoBehaviour
         scoreText.color = new Color (Camera.main.backgroundColor.r + 0.1f, Camera.main.backgroundColor.g + 0.1f, Camera.main.backgroundColor.b + 0.1f, 0.2f);
         scoreText.text = score.ToString ();
 
-
         if (score > PlayerPrefs.GetInt ("BestScore", 0)) {
             bestScoreText.text = score.ToString ();
             PlayerPrefs.SetInt ("BestScore", score);
@@ -70,10 +65,16 @@ public class GameManager : MonoBehaviour
 
     public void GameOver ()
     {
+        isDead = true;
+
         StartCoroutine (GameOverCoroutine ());
 
         MoveBackgroundBack.StopMove ();
         MoveBackgroundForeground.StopMove ();
+
+        DisableStar ();
+
+        OnDead?.Invoke ();
     }
 
     IEnumerator GameOverCoroutine ()
@@ -92,6 +93,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart ()
     {
+        isDead = false;
         SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
     }
 
@@ -100,15 +102,14 @@ public class GameManager : MonoBehaviour
         isStar = true;
         StarEffectPanelObject.SetActive (true);
         Invoke ("DisableStar", 5f);
+        OnStar?.Invoke ();
     }
 
     public void DisableStar ()
     {
         isStar = false;
         StarEffectPanelObject.SetActive (false);
-        if (OnDisableStar != null) {
-            OnDisableStar ();
-        }
+        OnDisableStar?.Invoke ();
     }
 
 }
