@@ -52,9 +52,7 @@ public class StepManager : MonoBehaviour
         DestroyStepAndItem ();
 
         var type = GetRandom<StepType> ();
-        if (stepIndex < 5) {
-            type = StepType.Normal;
-        } else if (gameManager.isStar && type != StepType.Normal && type != StepType.Dummy) {
+        if (stepIndex < 5 || gameManager.isStar) {
             type = StepType.Normal;
         }
 

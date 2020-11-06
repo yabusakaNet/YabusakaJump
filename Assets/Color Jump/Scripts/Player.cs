@@ -36,11 +36,13 @@ public class Player : MonoBehaviour
     public float maxGravity;
     public float gravityIncrease;
 
-    public Transform character;
-
+    public Transform playerTransform;
+    public SpriteRenderer playerSprite;
     public Animator playerAnimator;
 
     int lastJumpStepIndex = 0;
+
+    float starBlinkingNextTime;
 
     void Start ()
     {
@@ -55,6 +57,8 @@ public class Player : MonoBehaviour
         Height = GameObject.Find ("GameManager").GetComponent<DisplayManager> ().HEIGHT;
 
         playerAnimator.Play ("Character@Stand", 0, 0f);
+
+        starBlinkingNextTime = Time.time;
     }
 
     void Update ()
@@ -68,6 +72,15 @@ public class Player : MonoBehaviour
         AddGravityToPlayer ();
 
         DeadJudgement ();
+
+        if (gameManager.isStar) {
+            if (Time.time > starBlinkingNextTime) {
+                playerSprite.enabled = !playerSprite.enabled;
+                starBlinkingNextTime += 0.2f;
+            }
+        } else if (!playerSprite.enabled) {
+            playerSprite.enabled = true;
+        }
     }
 
     void WaitToTouch ()
@@ -120,9 +133,9 @@ public class Player : MonoBehaviour
             var afterPosX = transform.position.x;
 
             if (beforPosX < afterPosX) {
-                character.rotation = Quaternion.Euler (0f, 180f, 0f);
+                playerTransform.rotation = Quaternion.Euler (0f, 180f, 0f);
             } else if (beforPosX > afterPosX) {
-                character.rotation = Quaternion.Euler (0f, 0f, 0f);
+                playerTransform.rotation = Quaternion.Euler (0f, 0f, 0f);
             }
 
             if (transform.position.x < LeftEnd)
@@ -160,6 +173,11 @@ public class Player : MonoBehaviour
         } else if (other.gameObject.tag == "Star") {
             gameManager.StartStar ();
             DestroyItem (other);
+
+            JumpVelocity = gravity * 30f;
+            rb.velocity = new Vector2 (0, JumpVelocity);
+            playerAnimator.Play ("Character@Jump", 0, 0f);
+            IncreaseGravity ();
         }
     }
 
