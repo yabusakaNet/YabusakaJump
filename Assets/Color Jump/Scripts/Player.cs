@@ -42,8 +42,6 @@ public class Player : MonoBehaviour
 
     int lastJumpStepIndex = 0;
 
-    float starBlinkingNextTime;
-
     void Start ()
     {
         rb = GetComponent<Rigidbody2D> ();
@@ -57,8 +55,6 @@ public class Player : MonoBehaviour
         Height = GameObject.Find ("GameManager").GetComponent<DisplayManager> ().HEIGHT;
 
         playerAnimator.Play ("Character@Stand", 0, 0f);
-
-        starBlinkingNextTime = Time.time;
         stepManager.gameObject.SetActive (true);
     }
 
@@ -73,15 +69,6 @@ public class Player : MonoBehaviour
         AddGravityToPlayer ();
 
         DeadJudgement ();
-
-        if (gameManager.isStar) {
-            if (Time.time > starBlinkingNextTime) {
-                playerSprite.enabled = !playerSprite.enabled;
-                starBlinkingNextTime += 0.2f;
-            }
-        } else if (!playerSprite.enabled) {
-            playerSprite.enabled = true;
-        }
     }
 
     void WaitToTouch ()
@@ -173,7 +160,7 @@ public class Player : MonoBehaviour
             source.PlayOneShot (CoinClip, 1);
             DestroyItem (other);
         } else if (other.gameObject.tag == "Star") {
-            gameManager.StartStar ();
+            gameManager.EnableStar ();
             DestroyItem (other);
 
             JumpVelocity = gravity * 30f;

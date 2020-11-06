@@ -57,8 +57,15 @@ public class StepManager : MonoBehaviour
         }
 
         var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
+        if (gameManager.isStar) {
+            randomPosx = Random.Range (-3, 4);
+        }
         Vector2 pos = new Vector2 (randomPosx, stepIndex * 4);
         var newStep = Instantiate (stepPrefab, pos, Quaternion.identity);
+        if (gameManager.isStar) {
+            var scale = newStep.transform.localScale;
+            newStep.transform.localScale = new Vector3 (2.5f, scale.y, scale.z);
+        }
         newStep.transform.SetParent (transform);
         newStep.gameObject.name = stepIndex.ToString ();
         stepObjects.Add (stepIndex, newStep.gameObject);
@@ -119,7 +126,9 @@ public class StepManager : MonoBehaviour
         var spriteRenderer = newStep.GetComponent<SpriteRenderer> ();
         spriteRenderer.color = new Color (1f, 1f, 1f, 0f);
         yield return new WaitForSeconds (1.1f);
-        spriteRenderer.color = new Color (1f, 1f, 1f, 1f);
+        if (spriteRenderer != null) {
+            spriteRenderer.color = new Color (1f, 1f, 1f, 1f);
+        }
     }
 
     void CreateDummyStep (Step newStep)

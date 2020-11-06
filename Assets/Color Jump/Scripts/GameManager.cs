@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
     public MoveBackground MoveBackgroundBack;
     public MoveBackground MoveBackgroundForeground;
 
+    public GameObject StarEffectPanelObject;
+
+    public System.Action OnDisableStar;
+
     private bool _isStar = false;
     public bool isStar {
         get {
@@ -38,10 +42,10 @@ public class GameManager : MonoBehaviour
     {
         scoreText.text = score.ToString ();
 
-        if (IsInvoking ("FinishStar")) {
-            CancelInvoke ("FinishStar");
+        if (IsInvoking ("DisableStar")) {
+            CancelInvoke ("DisableStar");
         }
-        isStar = false;
+        DisableStar ();
     }
 
     public void StartGame ()
@@ -91,15 +95,20 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
     }
 
-    public void StartStar ()
+    public void EnableStar ()
     {
         isStar = true;
-        Invoke ("FinishStar", 5f);
+        StarEffectPanelObject.SetActive (true);
+        Invoke ("DisableStar", 5f);
     }
 
-    public void FinishStar ()
+    public void DisableStar ()
     {
         isStar = false;
+        StarEffectPanelObject.SetActive (false);
+        if (OnDisableStar != null) {
+            OnDisableStar ();
+        }
     }
 
 }
