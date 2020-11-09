@@ -7189,6 +7189,8 @@ MonoBehaviour:
   MoveBackgroundBack: {fileID: 100488313}
   MoveBackgroundForeground: {fileID: 2131355593}
   StarEffectPanelObject: {fileID: 892499742}
+  RestartButton: {fileID: 2023158711}
+  AdButton: {fileID: 775516056}
 --- !u!1 &2086413213
 GameObject:
   m_ObjectHideFlags: 0

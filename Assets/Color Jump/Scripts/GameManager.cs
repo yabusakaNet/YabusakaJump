@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject StarEffectPanelObject;
 
+    public GameObject RestartButton;
+    public GameObject AdButton;
+
     public System.Action OnStar;
     public System.Action OnDisableStar;
     public System.Action OnDead;
@@ -87,6 +90,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
         DeadEffectPanel.SetActive (false);
         GameOverPanel.SetActive (true);
+
+        var isAd = Random.Range (1, 4) == 1;
+        RestartButton.SetActive (!isAd);
+        AdButton.SetActive (isAd);
 
         yield break;
     }
