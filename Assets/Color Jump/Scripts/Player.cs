@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
 
     void GameOver ()
     {
+        GameObject effectObj = Instantiate (FX_Dead, transform.position, Quaternion.identity);
         gameManager.GameOver ();
         source.PlayOneShot (DeadClip, 1);
         stepManager.gameObject.SetActive (false);
@@ -157,7 +158,7 @@ public class Player : MonoBehaviour
             source.PlayOneShot (CoinClip, 1);
             DestroyItem (other);
         } else if (other.gameObject.tag == "Star") {
-            source.PlayOneShot(StarClip, 1);
+            source.PlayOneShot (StarClip, 1);
             gameManager.EnableStar ();
             DestroyItem (other);
 

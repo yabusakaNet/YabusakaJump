@@ -24,10 +24,11 @@ public class GameManager : MonoBehaviour
     public System.Action OnDisableStar;
     public System.Action OnDead;
 
+    GameDesignConstants gameDesignConstants;
+
     public bool isStar { get; set; } = false;
     public bool isDead { get; set; } = false;
-
-    int score = 0;
+    public int score { get; set; } = 0;
 
     void Awake ()
     {
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     void Start ()
     {
+        gameDesignConstants = GameDesignConstantsBehaviour.Instance.GameDesignConstants;
+
         scoreText.text = score.ToString ();
 
         if (IsInvoking ("DisableStar")) {
@@ -108,7 +111,7 @@ public class GameManager : MonoBehaviour
     {
         isStar = true;
         StarEffectPanelObject.SetActive (true);
-        Invoke ("DisableStar", 5f);
+        Invoke ("DisableStar", gameDesignConstants.StarEffectiveSeconds);
         OnStar?.Invoke ();
     }
 

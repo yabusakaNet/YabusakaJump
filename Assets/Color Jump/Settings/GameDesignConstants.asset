@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0658731cbe7ec46d0b5643e1e1a7e821, type: 3}
+  m_Name: GameDesignConstants
+  m_EditorClassIdentifier: 
+  NormalStepWidthUpperLimit: 1.7
+  NormalStepWidthLowerLimit: 1.7
+  ShortStepWidthUpperLimit: 1.2
+  ShortStepWidthLowerLimit: 0.8
+  MoveStepWidthUpperLimit: 1.7
+  MoveStepWidthLowerLimit: 1.7
+  SuddenlyStepWidthUpperLimit: 1.7
+  SuddenlyStepWidthLowerLimit: 1.7
+  DummyStepWidthUpperLimit: 1.7
+  DummyStepWidthLowerLimit: 1.7
+  DummyNormalStepWidthUpperLimit: 1.7
+  DummyNormalStepWidthLowerLimit: 1.7
+  StarEnableStepWidthUpperLimit: 2.5
+  StarEnableStepWidthLowerLimit: 2.5
+  StarEffectiveSeconds: 5
+  AppearShortStepScore: 50
+  AppearSuddenlyStepScore: 100
+  AppearShortSuddenlyStepScore: 100
+  AppearDummyStepScore: 200
+  AppearMoveStepScore: 200
+  CoinAppearanceProbability: 10
+  StarAppearanceProbability: 20
+  PlayerMoveMagnification: 2

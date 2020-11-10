@@ -1,6 +1,7 @@
 ﻿
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StepManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class StepManager : MonoBehaviour
     public GameObject starPrefab;
 
     GameManager gameManager;
+    GameDesignConstants gameDesignConstants;
 
     Dictionary<int, GameObject> stepObjects;
     Dictionary<int, GameObject> dummyStepObjects;
@@ -39,6 +41,7 @@ public class StepManager : MonoBehaviour
     void Start ()
     {
         gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+        gameDesignConstants = GameDesignConstantsBehaviour.Instance.GameDesignConstants;
 
         DestroyStepAndItems ();
 
@@ -51,42 +54,42 @@ public class StepManager : MonoBehaviour
     {
         DestroyStepAndItem ();
 
-        var type = GetRandom<StepType> ();
-        if (stepIndex < 5 || gameManager.isStar) {
-            type = StepType.Normal;
+        var type = (int)StepType.Normal;
+        if (stepIndex >= 5 && !gameManager.isStar) {
+            var typeList = new List<int> ();
+            typeList.Add (gameDesignConstants.NormalStepAppearanceProbability);
+            if (gameManager.score >= gameDesignConstants.AppearShortStepScore) {
+                typeList.Add (gameDesignConstants.ShortStepStepAppearanceProbability);
+            }
+            if (gameManager.score >= gameDesignConstants.AppearSuddenlyStepScore) {
+                typeList.Add (gameDesignConstants.SuddenlyStepAppearanceProbability);
+            }
+            if (gameManager.score >= gameDesignConstants.AppearShortSuddenlyStepScore) {
+                typeList.Add (gameDesignConstants.ShortSuddenlyStepAppearanceProbability);
+            }
+            if (gameManager.score >= gameDesignConstants.AppearDummyStepScore) {
+                typeList.Add (gameDesignConstants.DummyStepAppearanceProbability);
+            }
+            if (gameManager.score >= gameDesignConstants.AppearMoveStepScore) {
+                typeList.Add (gameDesignConstants.MoveStepAppearanceProbability);
+            }
+            type = GetRandomIndex (typeList);
         }
 
-        var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
-        if (gameManager.isStar) {
-            randomPosx = Random.Range (-3, 4);
-        }
-        Vector2 pos = new Vector2 (randomPosx, stepIndex * 4);
-        var newStep = Instantiate (stepPrefab, pos, Quaternion.identity);
-        if (gameManager.isStar) {
-            var scale = newStep.transform.localScale;
-            newStep.transform.localScale = new Vector3 (2.5f, scale.y, scale.z);
-        }
-        newStep.transform.SetParent (transform);
-        newStep.gameObject.name = stepIndex.ToString ();
-        stepObjects.Add (stepIndex, newStep.gameObject);
+        var newStep = CreateStep (type);
 
         switch (type) {
-        case StepType.Normal:
+        case (int)StepType.Normal:
+        case (int)StepType.Short:
             break;
-        case StepType.Short:
-            SetShort (newStep);
-            break;
-        case StepType.Suddenly:
+        case (int)StepType.Suddenly:
+        case (int)StepType.ShortSuddenly:
             StartCoroutine (SetSuddenly (newStep));
             break;
-        case StepType.ShortSuddenly:
-            StartCoroutine (SetSuddenly (newStep));
-            SetShort (newStep);
-            break;
-        case StepType.Dummy:
+        case (int)StepType.Dummy:
             CreateDummyStep (newStep);
             break;
-        case StepType.Move:
+        case (int)StepType.Move:
             SetMove (newStep);
             break;
         }
@@ -96,11 +99,76 @@ public class StepManager : MonoBehaviour
         stepIndex++;
     }
 
+    public int GetRandomIndex (List<int> weightTable)
+    {
+        var totalWeight = weightTable.Sum ();
+        var value = Random.Range (1, totalWeight + 1);
+        var retIndex = -1;
+        for (var i = 0; i < weightTable.Count; ++i) {
+            if (weightTable[i] >= value) {
+                retIndex = i;
+                break;
+            }
+            value -= weightTable[i];
+        }
+        return retIndex;
+    }
+
+    private Step CreateStep (int type)
+    {
+        var randomPosx = stepIndex == 1 ? 0 : Random.Range (-4, 5);
+        if (gameManager.isStar) {
+            randomPosx = Random.Range (-3, 4);
+        }
+
+        Vector2 pos = new Vector2 (randomPosx, stepIndex * 4);
+        var newStep = Instantiate (stepPrefab, pos, Quaternion.identity);
+        var scale = newStep.transform.localScale;
+        var width = gameDesignConstants.NormalStepWidthUpperLimit;
+
+        if (gameManager.isStar) {
+            width = Random.Range (gameDesignConstants.StarEnableStepWidthLowerLimit, gameDesignConstants.StarEnableStepWidthUpperLimit);
+        } else {
+            switch (type) {
+            case (int)StepType.Normal:
+                width = Random.Range (gameDesignConstants.NormalStepWidthLowerLimit, gameDesignConstants.NormalStepWidthUpperLimit);
+                break;
+            case (int)StepType.Short:
+                width = Random.Range (gameDesignConstants.ShortStepWidthLowerLimit, gameDesignConstants.ShortStepWidthUpperLimit);
+                break;
+            case (int)StepType.Suddenly:
+                width = Random.Range (gameDesignConstants.SuddenlyStepWidthLowerLimit, gameDesignConstants.SuddenlyStepWidthUpperLimit);
+                break;
+            case (int)StepType.ShortSuddenly:
+                width = Random.Range (gameDesignConstants.ShortStepWidthLowerLimit, gameDesignConstants.ShortStepWidthUpperLimit);
+                break;
+            case (int)StepType.Dummy:
+                width = Random.Range (gameDesignConstants.DummyNormalStepWidthLowerLimit, gameDesignConstants.DummyNormalStepWidthUpperLimit);
+                break;
+            case (int)StepType.Move:
+                width = Random.Range (gameDesignConstants.MoveStepWidthLowerLimit, gameDesignConstants.MoveStepWidthUpperLimit);
+                break;
+            }
+        }
+
+        newStep.transform.localScale = new Vector3 (width, scale.y, scale.z);
+
+        newStep.transform.SetParent (transform);
+        newStep.gameObject.name = stepIndex.ToString ();
+        stepObjects.Add (stepIndex, newStep.gameObject);
+
+        return newStep;
+    }
+
     public void MakeItem ()
     {
-        var type = GetRandom<ItemType> ();
-        if (stepIndex < 5 || (gameManager.isStar && type == ItemType.Star)) {
-            type = ItemType.None;
+        var type = ItemType.None;
+        if (stepIndex >= 5 && !gameManager.isStar) {
+            if (gameManager.score >= gameDesignConstants.AppearCoinScore && Random.Range (1, gameDesignConstants.CoinAppearanceProbability) == 1) {
+                type = ItemType.Coin;
+            } else if (gameManager.score >= gameDesignConstants.AppearStarScore && Random.Range (1, gameDesignConstants.StarAppearanceProbability) == 1) {
+                type = ItemType.Star;
+            }
         }
 
         switch (type) {
@@ -113,12 +181,6 @@ public class StepManager : MonoBehaviour
             CreateStar ();
             break;
         }
-    }
-
-    void SetShort (Step newStep)
-    {
-        var scale = newStep.transform.localScale;
-        newStep.transform.localScale = new Vector3 (0.75f, scale.y, scale.z);
     }
 
     IEnumerator SetSuddenly (Step newStep)
@@ -136,12 +198,18 @@ public class StepManager : MonoBehaviour
         var isDummyLeft = Random.Range (0, 2) == 1;
         int randomPosLeft = Random.Range (-4, 0);
         int randomPosRight = Random.Range (1, 5);
+
         Vector2 posLeft = new Vector2 (randomPosLeft, stepIndex * 4);
         Vector2 posRight = new Vector2 (randomPosRight, stepIndex * 4);
+
         GameObject newDummyStep = Instantiate (dummyStepPrefab, isDummyLeft ? posLeft : posRight, Quaternion.identity);
         newDummyStep.transform.SetParent (transform);
         newDummyStep.gameObject.name = stepIndex.ToString ();
+        var scale = newDummyStep.transform.localScale;
+        var width = Random.Range (gameDesignConstants.DummyStepWidthLowerLimit, gameDesignConstants.DummyStepWidthUpperLimit);
+        newDummyStep.transform.localScale = new Vector3 (width, scale.y, scale.z);
         dummyStepObjects.Add (stepIndex, newDummyStep);
+
         newStep.transform.localPosition = isDummyLeft ? posRight : posLeft;
     }
 
