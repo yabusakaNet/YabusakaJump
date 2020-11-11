@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
                 GameOver ();
             }
         } else if (other.gameObject.tag == "Coin") {
-            gameManager.AddScore (1);
+            gameManager.AddScore (5);
             source.PlayOneShot (CoinClip, 1);
             DestroyItem (other);
         } else if (other.gameObject.tag == "Star") {
