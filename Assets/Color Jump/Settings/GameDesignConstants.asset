@@ -27,11 +27,19 @@ MonoBehaviour:
   StarEnableStepWidthUpperLimit: 2.5
   StarEnableStepWidthLowerLimit: 2.5
   StarEffectiveSeconds: 5
-  AppearShortStepScore: 50
-  AppearSuddenlyStepScore: 100
-  AppearShortSuddenlyStepScore: 100
-  AppearDummyStepScore: 200
-  AppearMoveStepScore: 200
+  AppearShortStepScore: 10
+  AppearSuddenlyStepScore: 30
+  AppearShortSuddenlyStepScore: 40
+  AppearDummyStepScore: 20
+  AppearMoveStepScore: 50
+  NormalStepAppearanceProbability: 50
+  ShortStepStepAppearanceProbability: 10
+  SuddenlyStepAppearanceProbability: 10
+  ShortSuddenlyStepAppearanceProbability: 10
+  DummyStepAppearanceProbability: 30
+  MoveStepAppearanceProbability: 10
+  AppearCoinScore: 20
+  AppearStarScore: 30
   CoinAppearanceProbability: 10
   StarAppearanceProbability: 20
-  PlayerMoveMagnification: 2
+  PlayerMoveMagnification: 5
