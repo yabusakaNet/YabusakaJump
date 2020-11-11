@@ -15,6 +15,7 @@ public class BgmManager : MonoBehaviour
         gameManager.OnDead += OnDead;
 
         audioSource.clip = audioClip;
+        audioSource.loop = true;
         audioSource.Play ();
     }
 
@@ -31,6 +32,7 @@ public class BgmManager : MonoBehaviour
     public void OnDead ()
     {
         audioSource.clip = audioClipDead;
+        audioSource.loop = false;
         audioSource.Play ();
     }
 }
