@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0.1f;
         DeadEffectPanel.SetActive (true);
-        scoreText.color = Color.white;
+        scoreText.color = new Color32(224, 243, 187, 255);
 
         yield return new WaitForSecondsRealtime (1.0f);
         Time.timeScale = 0.0f;
