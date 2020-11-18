@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         DeadEffectPanel.SetActive (false);
         GameOverPanel.SetActive (true);
 
-        var isAd = Random.Range (1, 4) == 1;
+        var isAd = Random.Range (1, 1) == 1;
         RestartButton.SetActive (!isAd);
         AdButton.SetActive (isAd);
 
